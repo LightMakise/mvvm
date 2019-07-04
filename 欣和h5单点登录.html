@@ -1,0 +1,58 @@
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+测试单点登录接口<br>
+<form name="fLogin" id="fLogin" method="post" action="http://10.5.100.123:8040/admin/oa/login/ssoLogin">
+<table>
+<tr><td> appKey:</td><td> <input  type="text" name="appKey" value="xh_testh5"></td><td><td/><tr/>
+<tr><td> token: </td><td><input  type="text" name="token" value="" id="token"></td><td><td/><tr/>
+<tr><td> signature: </td><td><input type="text" name="signature" value="bee440a7546502fa64912140a91b3e3e" size="70"></td><td><td/><tr/>
+<tr><td> accountName: </td><td><input type="text" name="accountName" value="xhtest666" size="70"></td><td><td/><tr/> 
+<tr><td> viewname: </td><td><input type="text" name="viewname" value="commonHotel" size="70"></td><td><td/><tr/> 
+<tr><td> fromCityCodes: </td><td><input type="text" name="fromCityCodes" value="BJS" size="70"></td><td><td/><tr/> 
+<tr><td> toCityCodes: </td><td><input type="text" name="toCityCodes" value="SHA" size="70"></td><td><td/><tr/> 
+<tr><td> departDate: </td><td><input type="text" name="departDate" value="2020-01-01" size="70"></td><td><td/><tr/> 
+<tr><td> returnDate: </td><td><input type="text" name="returnDate" value="2020-01-06" size="70"></td><td><td/><tr/> 
+<tr><td> allowChange: </td><td><input type="text" name="allowChange" value="" size="70"></td><td><td/><tr/> 
+<tr><td> passengerEmployeeno: </td><td><input type="text" name="passengerEmployeeno" value="xhtest666" size="70"></td><td><td/><tr/> 
+	
+<tr><td> hotelCheckInDate: </td><td><input  type="text" name="hotelCheckInDate" value="2019-10-20" size="70"></td><td><td/><tr/> 
+<tr><td> hotelCheckOutDate: </td><td><input  type="text" name="hotelCheckOutDate" value="2019-10-22" size="70"></td><td><td/><tr/> 
+<tr><td> hotelPriceCap: </td><td><input  type="text" name="hotelPriceCap" value="400" size="70"></td><td><td/><tr/> 
+<tr><td> hotelCityCode: </td><td><input  type="text" name="hotelCityCode" value="SHA" size="70"></td><td><td/><tr/>
+
+
+</td><td> callback: </td><td><input type="text" name="callback" value="https://www.baidu.com" size="70"><td/><tr/>
+   
+<tr><td><input type="submit" value="提交">
+ 
+ 
+</form>
+<script>
+  var getToken = function () { 
+    $.ajax({
+      url:"http://10.5.100.123:9000/obt/api/admin/oa/login/getToken",
+      method:"post",
+      data:{
+      "appKey":"xh_testh5",
+      "appSecurity":"xh_testh5"
+      },
+      contentType: 'application/json',
+      beforeSend: function(request) {
+          // request.setRequestHeader("Content-Type", "application/json");
+      },
+      dataType:'json',
+      success:function(data) {
+        let token = data.token
+        $('#token').value(token)
+      }
+    })
+  }
+  // getToken()
+</script>
+</body>
+</html>
