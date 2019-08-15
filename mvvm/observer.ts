@@ -1,4 +1,6 @@
 
+import Dep from './dep';
+let dep = new Dep()
 /**
  * 观察者
  *
@@ -7,10 +9,8 @@
 class Observer {
   data: any
   constructor(data: Object) {
-    if (typeof data === 'object') {
-      this.data = data
-      this.observe()
-    } 
+    this.data = data
+    this.observe()
   }
   /**
    * 进行数据劫持
@@ -24,19 +24,32 @@ class Observer {
       /**
        * 这里如果val是个对象的话还需要进行进一步的数据劫持
        */
-      new Observer(val)
+      // new Observer(val)
       Object.defineProperty(this.data, key, {
         enumerable: true, //可以枚举
         get() {
+          /**
+           * Dep.target就是一个Watch
+           * 当Watch被创建(new)的时候会生成一个
+           */
+          Dep.target && dep.addSub(Dep.target)
           return val
         },
         set(newVal) {
           if (val === newVal) return  // 值不改变直接返回
           val = newVal
           /**
+           * 当被赋予新值的时候实则上修改了vm的值
+           * 利用发布订阅模式 来通知订阅者进行数据更新
+           * 实则就是更新视图的数据
+           */
+          dep.notify()
+          /**
            * 新值有可能是一个对象 继续对新对象添加数据劫持
            */
-          new Observer(val)
+          if (typeof val === 'object') {
+            new Observer(val)
+          }
         }
       })
     }

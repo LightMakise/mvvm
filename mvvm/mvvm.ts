@@ -11,29 +11,32 @@ class Mvvm {
     this.$option = option // 挂载option
     this.$data = this.$option.data // 挂载 data 到 $datas
     this.observe()
-    this.dataAgent()
+    this.dataAgent(this.$data)
     new Compile(this.$option.el, this.$data)
   }
   /**
    * 给数据添加观察者
    */
   observe() {
-    return new Observer(this.$data)
+    new Observer(this.$data)
   }
   
   /**
    * 数据代理
    * 使 this.$data 的数据可以直接通过 this. 访问
    */
-  dataAgent() {
-    for(let key in this.$data) {
+  dataAgent(data:any) {
+    for(let key in data) {
       Object.defineProperty( this , key , {
         enumerable: true,
         get() {
-          return this.$data[key]
+          return data[key]
         },
         set(newVal) {
-          this.$data[key] = newVal
+          data[key] = newVal
+          if (typeof newVal === 'object') {
+            this.dataAgent(newVal)
+          }
         }
       })
     }

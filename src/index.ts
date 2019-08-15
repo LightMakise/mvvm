@@ -5,7 +5,8 @@ var mvvm = new Mvvm({
     a: {
       a: 4
     },
-    b: 2
+    b: 2,
+    c: 5
   }
 })
 window.mvvm = mvvm
