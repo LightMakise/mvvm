@@ -6,6 +6,7 @@ class Compile {
   constructor(el: string, vm: any) {
     this.$vm = vm
     this.$el = document.querySelector(el)
+    // this.$el.style.display = 'none'
     console.log('$el', this.$el.firstChild);
     this.createdFrament()
     this.replace()
