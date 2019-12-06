@@ -32,17 +32,17 @@ class Compile {
       let text = node.textContent
       if (node.nodeType === 1 && reg.test(text)) {
         console.log(RegExp.$1)
-        let arr = RegExp.$1.split('.')
+        let arr = RegExp.$1.split('.')  // '{{a.b}}' => [a,b]
         let val = this.$vm;
+        // val 层层遍历
         arr.forEach(i => {
           val = val[i]
-        })
+        }) // val 为 a.b 的值
         // TODO newVal & val 需要处理非字符串时候的情况  
         new Watch(this.$vm, RegExp.$1, (newVal:any) => {
           console.log('newVal', newVal);
           node.textContent = text.replace(reg, newVal)
         })
-        console.log('val', val);
         node.textContent = text.replace(reg, val)
       }
     })

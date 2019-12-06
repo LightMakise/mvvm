@@ -9,7 +9,7 @@ class Mvvm {
   $data: Object = Object.create(null)
   constructor(option: Option) {
     this.$option = option // 挂载option
-    this.$data = this.$option.data // 挂载 data 到 $datas
+    this.$data = this.$option.data // 挂载 data 到 $data
     this.observe()
     this.dataAgent(this.$data)
     new Compile(this.$option.el, this.$data)
@@ -20,7 +20,6 @@ class Mvvm {
   observe() {
     new Observer(this.$data)
   }
-  
   /**
    * 数据代理
    * 使 this.$data 的数据可以直接通过 this. 访问
@@ -34,6 +33,7 @@ class Mvvm {
         },
         set(newVal) {
           data[key] = newVal
+          // 深层代理
           if (typeof newVal === 'object') {
             this.dataAgent(newVal)
           }

@@ -31,6 +31,7 @@ class Observer {
           /**
            * Dep.target就是一个Watch
            * 当Watch被创建(new)的时候会生成一个
+           * 添加订阅者 在调度中心
            */
           Dep.target && dep.addSub(Dep.target)
           return val

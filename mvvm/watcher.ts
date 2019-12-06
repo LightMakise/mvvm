@@ -13,7 +13,7 @@ class Watch {
   listener: Function
   constructor(vm:object, exp:any,listener:Function) {
     this.vm = vm
-    this.exp = exp
+    this.exp = exp 
     this.listener = listener
     Dep.target = this // Watch 即为 Dep.target
     this.getNewVal()
