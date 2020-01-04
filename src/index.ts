@@ -7,6 +7,10 @@ var mvvm = new Mvvm({
     },
     b: 2,
     c: 5
+  },
+  computeds: {
+    d() {
+      return this.a.a + this.b
+    }
   }
 })
-window.mvvm = mvvm

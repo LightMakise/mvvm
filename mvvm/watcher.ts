@@ -24,6 +24,10 @@ class Watch {
    * 这里的 this.vm 一般是数据变化的后的新值 比如原来的vm = {a:1} 通过修改 vm.a = 2
    * 即 vm = {a:2} 在 update 方法中会用到这个新的值来更新视图
    * val = val[i] 的时候会触发 观察者中的set和get方法
+   *
+   ** 此时会进行数据绑定操作 也就是observer真正生效的时候 触发get 
+   ** 由于此时 Dep.target 存在 就会在Dep池中添加属性对应的watch回调方法 进行绑定
+   * 
    * 这就是为什么在构造函数中先调用一次的原因
    */
   getNewVal() {

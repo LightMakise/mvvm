@@ -1,8 +1,10 @@
 import Observer from './observer';
 import Compile from './compile';
+import Computed from './computed';
 interface Option {
   data: any,
   el: string,
+  computeds: Object
 }
 class Mvvm {
   $option: Option
@@ -11,6 +13,8 @@ class Mvvm {
     this.$option = option // 挂载option
     this.$data = this.$option.data // 挂载 data 到 $data
     this.observe()
+    // 实现computeds 计算属性
+    new Computed(this.$option.computeds, this.$data)
     this.dataAgent(this.$data)
     new Compile(this.$option.el, this.$data)
   }
